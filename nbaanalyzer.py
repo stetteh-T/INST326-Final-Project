@@ -2,21 +2,44 @@ import csv
 import pandas as pd
 """A module for taking, analyzing, and displaying NBA stats"""
 
+class Player:
+
+  def __init__(self, name, team, games, rebounds, points, assists, steals, blocks):
+    self.name = name
+    self.team = team
+    self.rebounds = rebounds
+    self.points = points
+    self.assists = assists
+    self.games = games
+    self.steals = steals
+    self.blocks = blocks
+
 def load_data(file_name):
   """A function that loads a data file into pandas df
   Args: file_name: file that is loaded 
   """
-  pass
-def parsing_data(Newdata):
-    """A function for parsing data
-    Args: Newdata: df of data that is parsed"""
-    pass
+  return pd.read_csv(file_name)
 
-class Player:
-  pass
+def parsing_data(Newdata):
   
-  def __init__(self, name, team, rebounds,points, assists):
-    pass
+  """A function for parsing data
+    
+    Args: Newdata: df of data that is parsed
+  """
+  players = []
+  for _, row in Newdata.iterrows():
+    player = Player(
+      row['Player'],
+      row['Team'],
+      int(row['GP']),
+      float(row['PPG']),
+      float(row['RPG']),
+      float(row['APG']),
+      float(row['SPG']),
+      float(row['BPG']),
+    )
+    players.append(player)
+  return players
 
 def group_players_by_team(players):
   """A function that groups NBA players into their seperate teams
