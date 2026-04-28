@@ -1,4 +1,3 @@
-import csv
 import pandas as pd
 """A module for taking, analyzing, and displaying NBA stats"""
 
@@ -32,8 +31,8 @@ def parsing_data(Newdata):
       row['Player'],
       row['Team'],
       int(row['GP']),
-      float(row['PPG']),
       float(row['RPG']),
+      float(row['PPG']),
       float(row['APG']),
       float(row['SPG']),
       float(row['BPG']),
@@ -44,14 +43,31 @@ def parsing_data(Newdata):
 def group_players_by_team(players):
   """A function that groups NBA players into their seperate teams
   Args: players: list of players objects"""
-  pass
-
+  teams = {}
+  for player in players:
+    if player.team not in teams:
+        teams[player.team] = []
+      teams[player.team].append(player)
+  return teams
+  
+def get_stat_value(player, stat_name):
+  stats = {
+    'GP': player.games,
+    'PPG': player.points,
+    'RPG': player.rebounds,
+    'APG': player.assists,
+    'SPG': player.steals,
+    'BPG': player.blocks }
+  return stats[stat_name]
+  
 def rank_players(players, stat_name):
   """A function that ranks players by a certain stat
   Args: players: list of player objects
         stat_name: name of the stat that players are being ranked by
         """
-  pass
+   return sorted(
+     players,
+     key = lambda player: get_stat_value(player, stat_name), reverse =True )
 
 def get_top_five(players, stat_name):
   pass
@@ -68,6 +84,6 @@ def get_team_choice():
 def get_stat_choice():
   pass
 
- def display_results(team_name, top_players,average, stat_name):
-    pass
+def display_results(team_name, top_players,average, stat_name):
+  pass
 
