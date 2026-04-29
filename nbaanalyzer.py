@@ -6,7 +6,8 @@ def load_data(file_name):
   """A function that loads a data file into pandas df
   Args: file_name: file that is loaded 
   """
-  pass
+  df = pd.read_csv(file_name)
+  
 def parsing_data(Newdata):
     """A function for parsing data
     Args: Newdata: df of data that is parsed"""
