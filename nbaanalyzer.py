@@ -82,11 +82,29 @@ def calc_team_avg(players, stat_name):
 def compare_players(player1, player2):
   pass
 
-def get_team_choice():
-  pass
+def get_team_choice(teams):
+    """Prompt user to enter a team name"""
+    
+    while True:
+        team_name = input("Enter a team: ").title()
+        
+        if team_name in teams:
+            return team_name
+        
+        print("Invalid team name. Please try again.")
 
 def get_stat_choice():
-  pass
+    """Prompt user to enter a stat"""
+    
+    valid_stats = ['PPG', 'RPG', 'APG', 'SPG', 'BPG', 'GP']
+    
+    while True:
+        stat = input("Enter a stat: ").upper()
+        
+        if stat in valid_stats:
+            return stat
+        
+        print("Invalid stat. Choose from PPG, RPG, APG, SPG, BPG, GP.")
 
 def display_results(team_name, top_players,average, stat_name):
   pass
