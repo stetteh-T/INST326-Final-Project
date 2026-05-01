@@ -43,12 +43,12 @@ def parsing_data(Newdata):
 def group_players_by_team(players):
   """A function that groups NBA players into their seperate teams
   Args: players: list of players objects"""
-    teams = {}
-    for player in players:
-      if player.team not in teams:
-          teams[player.team] = []
-      teams[player.team].append(player)
-    return teams
+  teams = {}
+  for player in players:
+    if player.team not in teams:
+      teams[player.team] = []
+    teams[player.team].append(player)
+  return teams
   
 def get_stat_value(player, stat_name):
   stats = {
@@ -105,8 +105,16 @@ def get_stat_choice():
         
         print("Invalid stat. Choose from PPG, RPG, APG, SPG, BPG, GP.")
 
-def display_results(team_name, top_players,average, stat_name):
-  pass
+def display_results(team_name, top_players, average, stat_name):
+  print(f"\nTop players for {team_name} by {stat_name}:")
+  print("-" * 40)
+
+  for i, player in enumerate(top_players, start=1):
+    stat_value = get_stat_value(player, stat_name)
+    print(f"{i}. {player.name:<20} {stat_name}: {stat_value}")
+
+  print("-" * 40)
+  print(f"Team Average {stat_name}: {average}")
 
 def normalize_stat(stat_name):
   stat_aliases = {
