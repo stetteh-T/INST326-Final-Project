@@ -86,7 +86,7 @@ def get_team_choice(teams):
     """Prompt user to enter a team name"""
     
     while True:
-        team_name = input("Enter a team: ").title()
+        team_name = input("Enter a team: ").upper()
         
         if team_name in teams:
             return team_name
