@@ -82,12 +82,65 @@ def calc_team_avg(players, stat_name):
 def compare_players(player1, player2):
   pass
 
-def get_team_choice():
-  pass
+def get_team_choice(teams):
+    """Prompt user to enter a team name"""
+    
+    while True:
+        team_name = input("Enter a team: ").title()
+        
+        if team_name in teams:
+            return team_name
+        
+        print("Invalid team name. Please try again.")
 
 def get_stat_choice():
-  pass
+    """Prompt user to enter a stat"""
+    
+    while True:
+        stat = input("Enter a stat: ")
+        normalized_stat = normalize_stat(stat)
+        
+        if normalized_stat is not None:
+            return normalized_stat
+        
+        print("Invalid stat. Choose from PPG, RPG, APG, SPG, BPG, GP.")
 
-def display_results(team_name, top_players,average, stat_name):
-  pass
+def display_results(team_name, top_players, average, stat_name):
+  print(f"\nTop players for {team_name} by {stat_name}:")
+  print("-" * 40)
 
+  for i, player in enumerate(top_players, start=1):
+    stat_value = get_stat_value(player, stat_name)
+    print(f"{i}. {player.name:<20} {stat_name}: {stat_value}")
+
+  print("-" * 40)
+  print(f"Team Average {stat_name}: {average}")
+
+def normalize_stat(stat_name):
+  stat_aliases = {
+    'GAMES': 'GP',
+    'GAME': 'GP',
+    'GP': 'GP',
+
+    'POINTS': 'PPG',
+    'POINT': 'PPG',
+    'PPG': 'PPG',
+
+    'REBOUNDS': 'RPG',
+    'REBOUND': 'RPG',
+    'RPG': 'RPG',
+
+    'ASSISTS': 'APG',
+    'ASSIST': 'APG',
+    'APG': 'APG',
+
+    'STEALS': 'SPG',
+    'STEAL': 'SPG',
+    'SPG': 'SPG',
+
+    'BLOCKS': 'BPG',
+    'BLOCK': 'BPG',
+    'BPG': 'BPG'
+  }
+
+  return stat_aliases.get(stat_name.upper())
