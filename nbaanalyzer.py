@@ -96,16 +96,43 @@ def get_team_choice(teams):
 def get_stat_choice():
     """Prompt user to enter a stat"""
     
-    valid_stats = ['PPG', 'RPG', 'APG', 'SPG', 'BPG', 'GP']
-    
     while True:
-        stat = input("Enter a stat: ").upper()
+        stat = input("Enter a stat: ")
+        normalized_stat = normalize_stat(stat)
         
-        if stat in valid_stats:
-            return stat
+        if normalized_stat is not None:
+            return normalized_stat
         
         print("Invalid stat. Choose from PPG, RPG, APG, SPG, BPG, GP.")
 
 def display_results(team_name, top_players,average, stat_name):
   pass
 
+def normalize_stat(stat_name):
+  stat_aliases = {
+    'GAMES': 'GP',
+    'GAME': 'GP',
+    'GP': 'GP',
+
+    'POINTS': 'PPG',
+    'POINT': 'PPG',
+    'PPG': 'PPG',
+
+    'REBOUNDS': 'RPG',
+    'REBOUND': 'RPG',
+    'RPG': 'RPG',
+
+    'ASSISTS': 'APG',
+    'ASSIST': 'APG',
+    'APG': 'APG',
+
+    'STEALS': 'SPG',
+    'STEAL': 'SPG',
+    'SPG': 'SPG',
+
+    'BLOCKS': 'BPG',
+    'BLOCK': 'BPG',
+    'BPG': 'BPG'
+  }
+
+  return stat_aliases.get(stat_name.upper())
