@@ -107,5 +107,11 @@ def get_stat_choice():
         print("Invalid stat. Choose from PPG, RPG, APG, SPG, BPG, GP.")
 
 def display_results(team_name, top_players,average, stat_name):
-  pass
+    print(f"\nTop 5 {team_name} players by {stat_name}:\n")
+    
+    for i, player in enumerate(top_players, 1):
+        value = get_stat_value(player, stat_name)
+        print(f"{i}. {player.name}: {value}")
+    
+    print(f"\nAverage {stat_name} for top 5: {average}")
 
