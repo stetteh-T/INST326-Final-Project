@@ -175,6 +175,24 @@ def compare_players(player1, player2):
   print(f"Category Score -> {player1.name}: {score1}, {player2.name}: {score2}")
     
 
+def find_player_by_name(players, name):
+    """Finds a player by name (case-insensitive).
+
+    Args:
+        players (list[Player]): List of Player objects.
+        name (str): Player name input.
+
+    Returns:
+        Player or None: Matching player if found, otherwise None.
+    """
+    name = name.strip().lower()
+
+    for player in players:
+        if player.name.strip().lower() == name:
+            return player
+
+    return None
+
 def get_team_choice(teams):
     """Prompts the user to select a valid team.
 
@@ -264,3 +282,9 @@ def normalize_stat(stat_name):
   }
 
   return stat_aliases.get(stat_name.upper())
+
+def main():
+  pass
+
+if __name__ == "__main__":
+  main()
