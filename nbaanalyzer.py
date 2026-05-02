@@ -137,7 +137,43 @@ def compare_players(player1, player2):
     Note:
         This function is not yet implemented.
     """
-  pass
+  stats = ['GP','PPG', 'RPG', 'APG', 'SPG', 'BPG']
+
+  score1 = 0
+  score2 = 0
+
+  print(f"\nPlayer Comparison: {player1.name} vs {player2.name}")
+  print("=" * 55)
+
+  for stat in stats:
+      val1 = get_stat_value(player1, stat)
+      val2 = get_stat_value(player2, stat)
+      diff = round(abs(val1 - val2), 2)
+
+      if val1 > val2:
+            winner = player1.name
+            score1 += 1
+      elif val2 > val1:
+            winner = player2.name
+            score2 += 1
+      else:
+            winner = "Tie"
+
+      print(f"{stat}: {player1.name} ({val1}) vs {player2.name} ({val2}) "
+            f"| Diff: {diff} | Winner: {winner}")
+
+  print("=" * 55)
+  
+  if score1 > score2:
+      overall = player1.name
+  elif score2 > score1:
+      overall = player2.name
+  else:
+      overall = "Tie"
+
+  print(f"Overall Winner: {overall}")
+  print(f"Category Score -> {player1.name}: {score1}, {player2.name}: {score2}")
+    
 
 def get_team_choice(teams):
     """Prompts the user to select a valid team.
