@@ -192,6 +192,27 @@ def find_player_by_name(players, name):
             return player
 
     return None
+  
+def compare_players_menu(players):
+    """Allows user to input two player names and compares them."""
+
+    print("\nPlayer Comparison Mode")
+    print("-" * 40)
+
+    name1 = input("Enter Player 1 name: ")
+    name2 = input("Enter Player 2 name: ")
+
+    player1 = find_player_by_name(players, name1)
+    player2 = find_player_by_name(players, name2)
+
+    if player1 is None:
+        print("-" * 40)
+        print(f"Player not found: {name1}")
+        return
+
+    if player2 is None:
+        print(f"Player not found: {name2}")
+        return
 
 def get_team_choice(teams):
     """Prompts the user to select a valid team.
