@@ -213,6 +213,8 @@ def compare_players_menu(players):
     if player2 is None:
         print(f"Player not found: {name2}")
         return
+      
+    compare_players(player1, player2)
 
 def get_team_choice(teams):
     """Prompts the user to select a valid team.
@@ -225,8 +227,7 @@ def get_team_choice(teams):
     """
     
     while True:
-        team_name = input("Enter a team: ").upper()
-        
+        team_name = input("\nEnter a team: ").strip().lower()        
         if team_name in teams:
             return team_name
         
@@ -305,7 +306,37 @@ def normalize_stat(stat_name):
   return stat_aliases.get(stat_name.upper())
 
 def main():
-  pass
+  df = load_data("NBA_Data.csv")
+  players = parsing_data(df)
+  teams = group_players_by_team(players)
+
+  while True:
+      print("\nNBA Stats Analyzer")
+      print("1. View Top 5 Players by Team")
+      print("2. Compare Two Players")
+      print("3. Exit")
+
+      choice = input("Select an option: ")
+
+      if choice == "1":
+          team_name = get_team_choice(teams)
+          stat_name = get_stat_choice()
+
+          team_players = teams[team_name]
+          top_players = get_top_five(team_players, stat_name)
+          average = calc_team_avg(top_players, stat_name)
+
+          display_results(team_name, top_players, average, stat_name)
+
+      elif choice == "2":
+          compare_players_menu(players)
+
+      elif choice == "3":
+          print("Goodbye!")
+          break
+
+      else:
+          print("Invalid option. Try again.")
 
 if __name__ == "__main__":
   main()
