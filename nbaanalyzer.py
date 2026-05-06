@@ -38,8 +38,8 @@ def parsing_data(Newdata):
   players = []
   for _, row in Newdata.iterrows():
     player = Player(
-      row['Player'],
-      row['Team'],
+      row['Player'].strip(),
+      row['Team'].strip().title(),
       int(row['GP']),
       float(row['RPG']),
       float(row['PPG']),
@@ -250,11 +250,12 @@ def get_team_choice(teams):
     """
     
     while True:
-        team_name = input("\nEnter a team: ").strip().upper()        
+        team_name = input("\nEnter a team: ").strip().title()        
         if team_name in teams:
             return team_name
         
         print("Invalid team name. Please try again.")
+        print("Valid teams are:", ", ".join(teams.keys()))
 
 def get_stat_choice():
     """Prompts the user to select a valid statistic.
