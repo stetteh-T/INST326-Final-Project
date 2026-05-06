@@ -126,7 +126,30 @@ def calc_team_avg(players, stat_name):
   for player in players:
     total+= get_stat_value(player, stat_name)
   return round(total/len(players),1)
+
+def get_impact_score(player):
   
+  return round(player.points + player.rebounds 
+               + player.assists + player.steals + player.blocks, 1)
+
+def rank_players_by_impact(players):
+  return sorted(
+    players, key = lambda player: get_impact_score(player), reverse = True)
+          
+def display_impact_results(team_name, players):
+  ranked_players = rank_players_by_impact(players)
+  top_players = ranked_players[:5]
+  print(f'\n Top 5 All-Around Impact Players for {team_name}:')
+  print('-' * 70)
+
+  for i, player in enumerate(top_players, start = 1):
+    print(f'{i}, {player.name:<20}'
+          f'Impact score: {get_impact_score(player)}'
+          f'(PPG: {player.points}, RPG: {player.rebounds}'
+          f'APG: {player.assists}, SPG: {player.steals}, BPG: {player.blocks})'
+                                        )
+  print ('-' * 70)
+
 def compare_players(player1, player2):
   """Compares two players based on their statistics.
 
@@ -227,7 +250,7 @@ def get_team_choice(teams):
     """
     
     while True:
-        team_name = input("\nEnter a team: ").strip().lower()        
+        team_name = input("\nEnter a team: ").strip().upper()        
         if team_name in teams:
             return team_name
         
@@ -314,7 +337,8 @@ def main():
       print("\nNBA Stats Analyzer")
       print("1. View Top 5 Players by Team")
       print("2. Compare Two Players")
-      print("3. Exit")
+      print('3. View Top 5 Impact Players')
+      print("4. Exit")
 
       choice = input("Select an option: ")
 
@@ -330,8 +354,13 @@ def main():
 
       elif choice == "2":
           compare_players_menu(players)
+    
+      elif choice == '3':
+        team_name = get_team_choice(teams)
+        team_players = teams[team_name]
+        display_impact_results(team_name, team_players)
 
-      elif choice == "3":
+      elif choice == "4":
           print("Goodbye!")
           break
 
