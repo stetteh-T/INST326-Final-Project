@@ -60,10 +60,12 @@ def group_players_by_team(players):
         dict[str, list[Player]]: Dictionary mapping team names to lists of players.
     """
   teams = {}
+  teams["All"] = []
   for player in players:
     if player.team not in teams:
         teams[player.team] = []
     teams[player.team].append(player)
+    teams["All"].append(player)
   return teams
   
 def get_stat_value(player, stat_name):
@@ -250,7 +252,7 @@ def get_team_choice(teams):
     """
     
     while True:
-        team_name = input("\nEnter a team: ").strip().title()        
+        team_name = input("\nEnter a team(Ex: ALL, Lakers, Wizards): ").strip().title()        
         if team_name in teams:
             return team_name
         
@@ -265,7 +267,7 @@ def get_stat_choice():
     """
     
     while True:
-        stat = input("Enter a stat: ")
+        stat = input("Enter a stat(Ex: PPG, RPG): ")
         normalized_stat = normalize_stat(stat)
         
         if normalized_stat is not None:
