@@ -1,4 +1,5 @@
 import pandas as pd
+import statistics
 """A module for taking, analyzing, and displaying NBA stats"""
 
 class Player:
@@ -152,6 +153,30 @@ def display_impact_results(team_name, players):
                                         )
   print ('-' * 70)
 
+def display_role(player, players):
+   scorer_mean = 0
+   defender_mean = 0
+   teamplayer_mean = 0
+   for play in players:
+      scorer_mean += play.points
+      defender_mean += play.blocks + play.steals
+      teamplayer_mean += play.assists + play.rebounds
+   scorer_mean /= len(players)
+   defender_mean /= len(players)
+   teamplayer_mean /= len(players)
+
+   scorer_sd = round((player.points - scorer_mean) / scorer_mean * 100,2)
+   defender_sd = round((player.blocks + player.steals - defender_mean) / defender_mean * 100,2)
+   teamplayer_sd = round((player.assists + player.rebounds - teamplayer_mean) / teamplayer_mean * 100, 2)
+   role = max([scorer_sd,defender_sd,teamplayer_sd])
+   if role == scorer_sd:
+      print(f"{player.name} is best at scoring and scores {scorer_sd}% more than the average player")
+   elif role == defender_sd:
+      print(f"{player.name} is best at defending(steals & blocks) and defends {defender_sd}% better than the average player")
+   else:
+      print(f"{player.name} is best at teamwork(assists & rebounds) and is {teamplayer_sd}% better in teamwork than the average player")
+
+
 def compare_players(player1, player2):
   """Compares two players based on their statistics.
 
@@ -275,6 +300,8 @@ def get_stat_choice():
         
         print("Invalid stat. Choose from PPG, RPG, APG, SPG, BPG, GP.")
 
+  
+
 def display_results(team_name, top_players, average, stat_name):
   """Displays ranked player results and team average.
 
@@ -341,7 +368,8 @@ def main():
       print("1. View Top 5 Players by Team")
       print("2. Compare Two Players")
       print('3. View Top 5 Impact Players')
-      print("4. Exit")
+      print('4. View Players Role')
+      print("5. Exit")
 
       choice = input("Select an option: ")
 
@@ -364,6 +392,11 @@ def main():
         display_impact_results(team_name, team_players)
 
       elif choice == "4":
+        name = input("Enter Player name: ")
+        player = find_player_by_name(players, name)
+        display_role(player, players)
+
+      elif choice == "5":
           print("Goodbye!")
           break
 
