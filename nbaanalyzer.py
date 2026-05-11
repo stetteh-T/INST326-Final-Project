@@ -131,15 +131,42 @@ def calc_team_avg(players, stat_name):
   return round(total/len(players),1)
 
 def get_impact_score(player):
+  """Calculates an overall impact score which combines mutliple statistics
+  for a player
+  
+  Args:
+    player (Player): Player object being evaluated 
+  
+  Returns:
+    float: Combined impact score rounded 1 place
+  """
   
   return round(player.points + player.rebounds 
                + player.assists + player.steals + player.blocks, 1)
 
 def rank_players_by_impact(players):
+  """Ranks players by their overall impact score.
+   
+   Args:
+      players (list[Player]): List of Player objects.
+   
+    Returns:
+      list[Player]: Players sorted from highest to lowest impact score.
+  """
   return sorted(
     players, key = lambda player: get_impact_score(player), reverse = True)
           
 def display_impact_results(team_name, players):
+  """Displays the top five players by overall impact score.
+
+    Args:
+      team_name (str): Name of the selected team.
+      players (list[Player]): List of Player objects.
+
+    Side Effects:
+      Prints the top five impact players and their statistics.
+
+  """
   ranked_players = rank_players_by_impact(players)
   top_players = ranked_players[:5]
   print(f'\n Top 5 All-Around Impact Players for {team_name}:')
@@ -154,6 +181,17 @@ def display_impact_results(team_name, players):
   print ('-' * 70)
 
 def display_role(player, players):
+  """Determines a player's strongest role by comparing scoring, defending, and teamwork stats 
+  based on league averages.
+  
+  Args:
+    player (Player): Player being analyzed.
+    players (list[Player]): List of all Player objects.
+
+  Side Effects:
+    Prints the player's strongest role and comparison percentages.
+
+   """
    scorer_mean = 0
    defender_mean = 0
    teamplayer_mean = 0
